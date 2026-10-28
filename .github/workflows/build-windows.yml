@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Project zip download karein
-        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/1414074554113744/qgv5w3cs5gvacbjxkq7dfbn0/staff-tracker-flutter.zip"
+        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/2376510509850509/y37u0b5rc3gzjettssknzd8l/staff-tracker-flutter-v2.zip"
       - name: Zip extract karein
         run: Expand-Archive -Path project.zip -DestinationPath project
       - name: CMake policy patch lagayen
