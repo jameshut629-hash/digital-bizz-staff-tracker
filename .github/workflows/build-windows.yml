@@ -13,12 +13,16 @@ jobs:
         run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/1414074554113744/qgv5w3cs5gvacbjxkq7dfbn0/staff-tracker-flutter.zip"
       - name: Zip extract karein
         run: Expand-Archive -Path project.zip -DestinationPath project
+      - name: CMake policy patch lagayen
+        run: |
+          $f = 'project/staff-tracker-flutter/windows/CMakeLists.txt'
+          $c = Get-Content $f -Raw
+          Set-Content $f ("set(CMAKE_POLICY_VERSION_MINIMUM 3.5)`n" + $c) -NoNewline
+          Get-Content $f -TotalCount 5
       - name: Flutter install karein (stable)
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-      - name: CMake 3.31 par downgrade karein
-        run: choco install cmake --version=3.31.6 -y --allow-downgrade --force --no-progress
       - name: CMake version check karein
         run: cmake --version; where.exe cmake
       - name: Dependencies lein
