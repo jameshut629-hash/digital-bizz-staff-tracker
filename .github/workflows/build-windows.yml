@@ -1,0 +1,30 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Project zip download karein
+        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/1414074554113744/qgv5w3cs5gvacbjxkq7dfbn0/staff-tracker-flutter.zip"
+      - name: Zip extract karein
+        run: Expand-Archive -Path project.zip -DestinationPath project
+      - name: Flutter install karein (stable)
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Dependencies lein
+        run: flutter pub get
+        working-directory: project/staff-tracker-flutter
+      - name: Windows EXE banayen
+        run: flutter build windows --release
+        working-directory: project/staff-tracker-flutter
+      - name: EXE ko download ke liye rakhen
+        uses: actions/upload-artifact@v4
+        with:
+          name: digital-bizz-staff-tracker-windows
+          path: project/staff-tracker-flutter/build/windows/x64/runner/Release/
