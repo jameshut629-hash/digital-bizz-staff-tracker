@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Project zip download karein
-        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/1872069280445969/bl3ajkm4kfbk62rnkgihfa2l/staff-tracker-source-v8.zip"
+        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/1476018521088976/t9mrnlf1n6m5fg8q6gn8gw8t/staff-tracker-source-v8.zip"
       - name: Zip extract karein
         run: Expand-Archive -Path project.zip -DestinationPath project
       - name: CMake policy patch lagayen
