@@ -17,10 +17,10 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-      - name: CMake 3.31 install karein
-        uses: jwlawson/actions-setup-cmake@v2
-        with:
-          cmake-version: '3.31.6'
+      - name: CMake 3.31 par downgrade karein
+        run: choco install cmake --version=3.31.6 -y --allow-downgrade --force --no-progress
+      - name: CMake version check karein
+        run: cmake --version; where.exe cmake
       - name: Dependencies lein
         run: flutter pub get
         working-directory: project/staff-tracker-flutter
