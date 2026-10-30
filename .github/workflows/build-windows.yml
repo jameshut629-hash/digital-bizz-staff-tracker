@@ -40,4 +40,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: PerformanceGear-Tracker-Setup
-          path: project/staff-tracker-flutter/windows/Output/PerformanceGear-Tracker-Setup.exe
+          path: project/staff-tracker-flutter/windows/windows/Output/PerformanceGear-Tracker-Setup.exe
