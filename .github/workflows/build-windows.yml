@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Project zip download karein
-        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/1476018521088976/t9mrnlf1n6m5fg8q6gn8gw8t/staff-tracker-source-v8.zip"
+        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/1116366464113605/eo0pvciy27f4izt52q9b691j/staff-tracker-flutter-v8-installer-src.zip"
       - name: Zip extract karein
         run: Expand-Archive -Path project.zip -DestinationPath project
       - name: CMake policy patch lagayen
@@ -31,8 +31,13 @@ jobs:
       - name: Windows EXE banayen
         run: flutter build windows --release
         working-directory: project/staff-tracker-flutter
-      - name: EXE ko download ke liye rakhen
+      - name: Inno Setup install karein
+        run: choco install innosetup -y
+      - name: Setup installer banayen
+        run: & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" windows\installer.iss
+        working-directory: project/staff-tracker-flutter
+      - name: Setup installer ko download ke liye rakhen
         uses: actions/upload-artifact@v4
         with:
-          name: digital-bizz-staff-tracker-windows
-          path: project/staff-tracker-flutter/build/windows/x64/runner/Release/
+          name: PerformanceGear-Tracker-Setup
+          path: project/staff-tracker-flutter/windows/Output/PerformanceGear-Tracker-Setup.exe
