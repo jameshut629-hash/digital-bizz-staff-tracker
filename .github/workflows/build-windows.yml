@@ -8,6 +8,9 @@ on:
 jobs:
   build-windows:
     runs-on: windows-latest
+    permissions:
+      contents: write
+      actions: write
     steps:
       - name: Project zip download karein
         run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/1116366464113605/eo0pvciy27f4izt52q9b691j/staff-tracker-flutter-v8-installer-src.zip"
@@ -41,3 +44,10 @@ jobs:
         with:
           name: PerformanceGear-Tracker-Setup
           path: project/staff-tracker-flutter/windows/windows/Output/PerformanceGear-Tracker-Setup.exe
+      - name: Setup.exe ko v8.0 release par upload karein
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v8.0
+          files: project/staff-tracker-flutter/windows/windows/Output/PerformanceGear-Tracker-Setup.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
