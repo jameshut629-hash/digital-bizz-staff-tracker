@@ -34,7 +34,7 @@ jobs:
       - name: Inno Setup install karein
         run: choco install innosetup -y
       - name: Setup installer banayen
-        run: & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" windows\installer.iss
+        run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" windows\installer.iss'
         working-directory: project/staff-tracker-flutter
       - name: Setup installer ko download ke liye rakhen
         uses: actions/upload-artifact@v4
