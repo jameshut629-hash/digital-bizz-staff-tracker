@@ -42,10 +42,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Setup
-          path: project/staff-tracker-flutter/windows/output/Setup.exe
+          path: project/staff-tracker-flutter/windows/windows/Output/PerformanceGear-Tracker-Setup.exe
       - name: Setup.exe ko v9.0 release par upload karein
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v9.0
-          name: v8.0 Performance Gear Tracker
-          files: project/staff-tracker-flutter/windows/output/Setup.exe
+          name: v9.0 Performance Gear Tracker
+          files: project/staff-tracker-flutter/windows/windows/Output/PerformanceGear-Tracker-Setup.exe
