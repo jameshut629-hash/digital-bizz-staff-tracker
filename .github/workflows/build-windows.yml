@@ -13,7 +13,7 @@ jobs:
       actions: write
     steps:
       - name: Project zip download karein
-        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/1156364983398207/5n47cjotxxxodbakykuxknbv/staff-tracker-flutter-v10-compact-login-src.zip"
+        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/1511265037484025/dl6gl6z5xw48qhrc49k6i636/staff-tracker-flutter-v9-src.zip"
       - name: Zip extract karein
         run: Expand-Archive -Path project.zip -DestinationPath project
       - name: CMake policy patch lagayen
@@ -35,19 +35,17 @@ jobs:
         run: flutter build windows --release
         working-directory: project/staff-tracker-flutter
       - name: Inno Setup install karein
-        run: choco install innosetup -y
-      - name: Setup installer banayen
-        run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" windows\installer.iss'
-        working-directory: project/staff-tracker-flutter
-      - name: Setup installer ko download ke liye rakhen
+        run: choco install innosetup --yes
+      - name: Setup.exe banayen (ISCC)
+        run: ISCC.exe "project/staff-tracker-flutter/windows/installer.iss"
+      - name: Setup.exe artifact upload karein
         uses: actions/upload-artifact@v4
         with:
-          name: PerformanceGear-Tracker-Setup
-          path: project/staff-tracker-flutter/windows/windows/Output/PerformanceGear-Tracker-Setup.exe
-      - name: Setup.exe ko v8.0 release par upload karein
+          name: Setup
+          path: project/staff-tracker-flutter/windows/output/Setup.exe
+      - name: Setup.exe ko v9.0 release par upload karein
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v8.0
-          files: project/staff-tracker-flutter/windows/windows/Output/PerformanceGear-Tracker-Setup.exe
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: v9.0
+          name: v8.0 Performance Gear Tracker
+          files: project/staff-tracker-flutter/windows/output/Setup.exe
