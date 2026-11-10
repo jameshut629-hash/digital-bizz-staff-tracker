@@ -13,7 +13,7 @@ jobs:
       actions: write
     steps:
       - name: Project zip download karein
-        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/1511265037484025/dl6gl6z5xw48qhrc49k6i636/staff-tracker-flutter-v9-src.zip"
+        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/1851074372987142/6qqqeo1akh83yk9atv6hpdl1/staff-tracker-flutter-v9.1-direct-upload-src.zip"
       - name: Zip extract karein
         run: Expand-Archive -Path project.zip -DestinationPath project
       - name: CMake policy patch lagayen
@@ -43,9 +43,9 @@ jobs:
         with:
           name: Setup
           path: project/staff-tracker-flutter/windows/windows/Output/PerformanceGear-Tracker-Setup.exe
-      - name: Setup.exe ko v9.0 release par upload karein
+      - name: Setup.exe ko v9.1 release par upload karein
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v9.0
-          name: v9.0 Performance Gear Tracker
+          tag_name: v9.1
+          name: v9.1 Performance Gear Tracker
           files: project/staff-tracker-flutter/windows/windows/Output/PerformanceGear-Tracker-Setup.exe
