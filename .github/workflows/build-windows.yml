@@ -15,7 +15,7 @@ jobs:
       actions: write
     steps:
       - name: Project zip download karein
-        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/2005266313498497/92n2jczmg2o6y318z9w0050n/staff-tracker-flutter-v9.1.1-src.zip"
+        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/2138516893452067/a18bvyoo8rp7askg42gwpr3o/staff-tracker-flutter-v9.1.2-src.zip"
       - name: Zip extract karein
         run: Expand-Archive -Path project.zip -DestinationPath project
       - name: CMake policy patch lagayen
@@ -36,6 +36,15 @@ jobs:
       - name: Windows EXE banayen
         run: flutter build windows --release
         working-directory: project/staff-tracker-flutter
+      - name: VC++ DLLs app folder mein copy karein
+        run: |
+          $dest = 'build\windows\x64\runner\Release'
+          foreach ($dll in @('vcruntime140.dll','vcruntime140_1.dll','msvcp140.dll','msvcp140_1.dll','msvcp140_2.dll','concrt140.dll','vccorlib140.dll')) {
+            $src = Join-Path $env:SystemRoot ("System32\" + $dll)
+            if (Test-Path $src) { Copy-Item $src -Destination $dest -Force; Write-Host "copied $dll" } else { Write-Host "missing $dll" }
+          }
+          Get-ChildItem $dest -Filter *.dll | Select-Object Name
+        working-directory: project/staff-tracker-flutter
       - name: Visual C++ Redistributable download karein
         run: curl.exe -L -o windows\vc_redist.x64.exe "https://aka.ms/vs/17/release/vc_redist.x64.exe"
         working-directory: project/staff-tracker-flutter
@@ -51,6 +60,6 @@ jobs:
       - name: Setup.exe ko v9.1 release par upload karein
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v9.1.1
+          tag_name: v9.1.2
           name: v9.1 Performance Gear Tracker
           files: project/staff-tracker-flutter/windows/windows/Output/PerformanceGear-Tracker-Setup.exe
