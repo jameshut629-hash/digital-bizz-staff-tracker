@@ -1,9 +1,11 @@
 name: Build Windows EXE
 
+
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
 
 jobs:
   build-windows:
@@ -13,7 +15,7 @@ jobs:
       actions: write
     steps:
       - name: Project zip download karein
-        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/1851074372987142/6qqqeo1akh83yk9atv6hpdl1/staff-tracker-flutter-v9.1-direct-upload-src.zip"
+        run: curl.exe -L -o project.zip "https://muse.ai/files/1422772990918355/2005266313498497/92n2jczmg2o6y318z9w0050n/staff-tracker-flutter-v9.1.1-src.zip"
       - name: Zip extract karein
         run: Expand-Archive -Path project.zip -DestinationPath project
       - name: CMake policy patch lagayen
@@ -34,6 +36,9 @@ jobs:
       - name: Windows EXE banayen
         run: flutter build windows --release
         working-directory: project/staff-tracker-flutter
+      - name: Visual C++ Redistributable download karein
+        run: curl.exe -L -o windows\vc_redist.x64.exe "https://aka.ms/vs/17/release/vc_redist.x64.exe"
+        working-directory: project/staff-tracker-flutter
       - name: Inno Setup install karein
         run: choco install innosetup --yes
       - name: Setup.exe banayen (ISCC)
@@ -46,6 +51,6 @@ jobs:
       - name: Setup.exe ko v9.1 release par upload karein
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v9.1
+          tag_name: v9.1.1
           name: v9.1 Performance Gear Tracker
           files: project/staff-tracker-flutter/windows/windows/Output/PerformanceGear-Tracker-Setup.exe
